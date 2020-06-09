@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:customForms="clr-namespace:MedicalShredApp.CustomForms;assembly=MedicalShredApp"
+             xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.TimeLine.HealthReportPopupPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Bottom"
+                                   PositionOut="Bottom"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8"/>
+
+    </pages:PopupPage.Animation>
+    <Grid VerticalOptions="EndAndExpand" HorizontalOptions="Fill"  HeightRequest="500">
+        <customForms:ExtendedFrame  CornerRadius="20,20,0,0" BackgroundColor="White">
+            <ScrollView>
+                <StackLayout Spacing="10" Padding="0">
+                    <StackLayout>
+                        <Label  FontSize="18" HorizontalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="病历记录： "/>
+                                    <Span Text="2018年03月24日"/>
+                                    <Span Text=" — "/>
+                                    <Span Text="2020年04月22日"/>
+                                    <Span Text="{Binding  Doctor.Position}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        
+                        <Label  Text="{Binding  Doctor.Description}" FontSize="17" HorizontalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+                    </StackLayout>
+                    <pancakeView:PancakeView BackgroundColor="{StaticResource Primary}" Padding="10" HeightRequest="120" CornerRadius="30" >
+                        <ScrollView>
+                            <StackLayout Orientation="Vertical" Spacing="8">
+                                <Label Text="诊断统计：" HorizontalTextAlignment="Center"  FontSize="20" FontAttributes="Bold" TextColor="Black"></Label>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="上呼吸道感染综合征" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="3次" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="咽鼓管的其他疾患" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="3次" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="急性上呼吸道感染" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="3次" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="葡萄糖-６-磷酸脱氢酶缺乏症" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="3次" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="上呼吸道感染" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                    <Label Text="3次" HorizontalTextAlignment="Center" HorizontalOptions="EndAndExpand"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ScrollView>
+                    </pancakeView:PancakeView>
+
+                    <pancakeView:PancakeView BackgroundColor="{StaticResource Primary}" Padding="10" HeightRequest="120" CornerRadius="30" >
+                        <ScrollView>
+                            <StackLayout Orientation="Vertical" Spacing="8">
+                                <Label Text="症状分析：" HorizontalTextAlignment="Center"  FontSize="20" FontAttributes="Bold" TextColor="Black"></Label>
+                                <Label Text="颈抵抗感是否有，颈静脉是否充盈，双肺是否有啰音，心脏是否有各种杂音及其传导，胸部叩诊是否有实变，腹部的望、触、叩、听检查情况，重点是肠鸣音和移动性浊音，腹壁是否有压痛和反跳痛，是否有触及肿块。
+病理反射的检查。如何化验、心电图、X光、CT、超声波等检查是按病情情况进行选择，反对大检查，也反对无检查，总之是要选择有助于疾病诊断和鉴别诊断的检查" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                            </StackLayout>
+                        </ScrollView>
+                    </pancakeView:PancakeView>
+ <pancakeView:PancakeView BackgroundColor="{StaticResource Primary}" Padding="10" HeightRequest="120" CornerRadius="30" >
+                        <ScrollView>
+                            <StackLayout Orientation="Vertical" Spacing="8">
+                                <Label Text="健康建议：" HorizontalTextAlignment="Center"  FontSize="20" FontAttributes="Bold" TextColor="Black"></Label>
+                                <Label Text="防治并发症的发生，主要是将血压、血糖、血脂长期稳定控制在比较好的状态下，坚持少量运动，不抽烟、不喝酒、低盐、低脂饮食、定期到医院检查，调整治疗。 
+只要能控制好血压、血糖、血脂，有效地杜绝并发症，就不会影响寿命的。" HorizontalTextAlignment="Center" HorizontalOptions="Start"  FontSize="17" FontAttributes="Bold" TextColor="White"/>
+                            </StackLayout>
+                        </ScrollView>
+                    </pancakeView:PancakeView>
+                </StackLayout>
+            </ScrollView>
+        </customForms:ExtendedFrame>
+    </Grid>
+</pages:PopupPage>

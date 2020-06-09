@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:pullToRefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             xmlns:local="clr-namespace:MedicalShredApp.Common.Converter" 
+             mc:Ignorable="d"
+             x:Name="mainContainer"
+             x:Class="MedicalShredApp.Views.Profile.MyMessagePage"
+             Title="在线问诊记录" >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="FillAndExpand" >
+                <pullToRefresh:PullToRefreshLayout x:Name="RefreshLayout"
+                    IsPullToRefreshEnabled="{Binding CanRefresh}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsBusy , Mode=OneWay}"
+                    RefreshColor="Blue">
+                    <ListView ItemsSource="{Binding ChatList}" x:Name="chatList"
+                              CachingStrategy="RetainElement" 
+                              SeparatorVisibility="None">
+                        <ListView.RowHeight>
+                            <OnPlatform x:TypeArguments="x:Int32" Android="90"/>
+                        </ListView.RowHeight>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <pancakeView:PancakeView HeightRequest="90"
+                                                             CornerRadius="20"
+                                                             Padding="10,10" Margin="5" 
+                                                             BackgroundColor="{StaticResource Primary}">
+                                    <StackLayout Orientation="Vertical" Padding="20,5">
+                                      
+                                        <Label Text="{Binding AnotherName , StringFormat='与 {0} 医生的对话'}" FontAttributes="Bold" FontSize="20"  LineBreakMode="TailTruncation"  VerticalOptions="Start"/>
+                                        <Label Text="{Binding LatestTime, Converter={StaticResource DateTimeConverter},ConverterParameter=yyyy-MM-dd HH:mm}" 
+                                               FontSize="17" TextColor="Gainsboro" HorizontalOptions="EndAndExpand" />
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.ChatDoctorCommand , Source={x:Reference mainContainer}}" 
+                                                                  CommandParameter="{Binding}"/>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                    </pancakeView:PancakeView>
+                            </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </pullToRefresh:PullToRefreshLayout>
+            </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

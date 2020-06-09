@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:pullToRefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             mc:Ignorable="d"
+             Title="我的预约"
+             x:Name="mainContainer"
+             x:Class="MedicalShredApp.Views.Profile.MyReservePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ReserveStateConverter x:Key="ReserveStateConverter" />
+            <converter:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="FillAndExpand" >
+            <pullToRefresh:PullToRefreshLayout x:Name="RefreshLayout"
+                    IsPullToRefreshEnabled="{Binding CanRefresh}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsBusy , Mode=OneWay}"
+                    RefreshColor="Blue">
+                <ListView ItemsSource="{Binding ReserveDoctors}" 
+                          ItemTapped="ListView_OnItemTapped"
+                          CachingStrategy="RetainElement"
+                          SeparatorVisibility="None">
+                    <ListView.RowHeight>
+                        <OnPlatform x:TypeArguments="x:Int32" Android="110"/>
+                    </ListView.RowHeight>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <pancakeView:PancakeView HeightRequest="90"
+                                                         CornerRadius="20"
+                                                         Padding="10,10" Margin="5" 
+                                                         BackgroundColor="{StaticResource Primary}">
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <StackLayout Orientation="Vertical" >
+                                            <StackLayout Orientation="Horizontal" Spacing="20">
+                                                <Label Text="{Binding DoctorName}" FontSize="19"
+                                           FontAttributes="Bold" HorizontalOptions="Start"/>
+                                                <Label Text="{Binding Department}" 
+                                                       HorizontalOptions="Start" 
+                                                       FontSize="19" FontAttributes="Bold"/>
+                                                <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="EndAndExpand"
+                                                                         CornerRadius="20"
+                                                                         Padding="10, 0"
+                                                                         BackgroundColor="{StaticResource TopColor}">
+                                                    <Label Text="{Binding StateName}" FontSize="17" 
+                                                           TextColor="{Binding State , Converter={StaticResource ReserveStateConverter}}"  
+                                                           VerticalOptions="Center"/>
+                                                </pancakeView:PancakeView>
+                                            </StackLayout>
+                                            <Label Text="{Binding HosName}"
+                                           VerticalOptions="StartAndExpand"  FontSize="17"  LineBreakMode="TailTruncation" FontAttributes="Bold"/>
+                                            <Label  FontSize="17" TextColor="Black" >
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="预约时间："/>
+                                                        <Span Text="{Binding ReserveDate, Converter={StaticResource DateTimeConverter},ConverterParameter=yyyy-MM-dd HH:mm}"/>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </StackLayout>
+                                        <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
+                                            <Button Text="取消预约" 
+                                                    WidthRequest="80" HeightRequest="40"
+                                                    BackgroundColor="{StaticResource TopColor}" 
+                                                    BorderColor="{StaticResource Primary}"
+                                                    BorderWidth="1" 
+                                                    VerticalOptions="Start"
+                                                    HorizontalOptions="EndAndExpand" 
+                                                    CornerRadius="20"
+                                                    Command="{Binding BindingContext.CancelReserveCommand , Source={x:Reference mainContainer}}" 
+                                                    CommandParameter="{Binding}"
+                                                    TextColor="{StaticResource PrimaryDark}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </pancakeView:PancakeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </pullToRefresh:PullToRefreshLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

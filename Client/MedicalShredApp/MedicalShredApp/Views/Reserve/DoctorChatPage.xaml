@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utils="clr-namespace:MedicalShredApp.Utils;assembly=MedicalShredApp"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             mc:Ignorable="d"
+             x:Name="mainChat"
+             x:Class="MedicalShredApp.Views.Reserve.DoctorChatPage"
+             Title="{Binding  DoctorName ,StringFormat='与 {0}医生 对话中...'}" >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+        <ListView
+            Grid.Row="0" x:Name="ChatContentList"
+            FlowDirection="RightToLeft"
+            HasUnevenRows="True"
+            ItemsSource="{Binding ChatContent}" 
+            SelectedItem="{Binding SelectedItem}" PropertyChanged="BindableObject_OnPropertyChanged" 
+            ItemTapped="ListView_OnItemTapped"
+            SeparatorVisibility="None" 
+            VerticalOptions="End">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid IsVisible="{Binding IsSystemMessage}">
+                                <Label
+                                    Margin="20,5"
+                                    FontSize="16"
+                                    HorizontalOptions="CenterAndExpand"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Content}"
+                                    TextColor="#969daf" />
+                            </Grid>
+                            <Grid IsVisible="{Binding IsSystemMessage, Converter={StaticResource InverseBoolConverter}}">
+                                <Grid IsVisible="{Binding IsUser, Converter={StaticResource InverseBoolConverter}}" RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="5*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="10,0"
+                                        HorizontalOptions="End"
+                                        HorizontalTextAlignment="End"
+                                        Text="{Binding AnotherName}"
+                                        TextColor="#969daf" />
+                                    <Grid
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="20,5"
+                                        Padding="10"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="FillAndExpand">
+                                        <BoxView
+                                            BackgroundColor="{StaticResource Primary}"
+                                            CornerRadius="30"
+                                            HorizontalOptions="FillAndExpand" />
+                                        <Label
+                                            Margin="10"
+                                            Text="{Binding Content}"
+                                            TextColor="#696f7f"
+                                            VerticalOptions="FillAndExpand" />
+                                    </Grid>
+                                </Grid>
+
+                                <Grid IsVisible="{Binding IsUser}" RowSpacing="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="5*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label
+                                        Margin="10,0"
+                                        HorizontalOptions="Start"
+                                        Text="{Binding UserName}"
+                                        TextColor="#969daf" />
+                                    <Grid
+                                        Grid.Row="1"
+                                        Margin="20,5"
+                                        Padding="10"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="FillAndExpand">
+                                        <BoxView
+                                            BackgroundColor="{StaticResource PrimaryDark}"
+                                            CornerRadius="30"
+                                            HorizontalOptions="FillAndExpand" />
+                                        <Label
+                                            Margin="10"
+                                            Text="{Binding Content}"
+                                            TextColor="White"
+                                            VerticalOptions="FillAndExpand" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Grid
+            Grid.Row="1"
+            RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="80" />
+            </Grid.ColumnDefinitions>
+            <Entry
+                BackgroundColor="{StaticResource TopColor}"
+                Placeholder="Message"
+                PlaceholderColor="{StaticResource Primary}"
+                Text="{Binding MessageInput}"
+                TextColor="Black" />
+            <Button
+                Grid.Column="1"
+                BackgroundColor="{StaticResource PrimaryDark}"
+                Command="{Binding SendMessageCommand}"
+                HorizontalOptions="FillAndExpand"
+                Font="30"
+                Text="{x:Static utils:MaterialDesignIcons.Send}" 
+                FontFamily="{StaticResource IconFont}"
+                VerticalOptions="FillAndExpand" />
+        </Grid>
+    </Grid>
+</ContentPage>

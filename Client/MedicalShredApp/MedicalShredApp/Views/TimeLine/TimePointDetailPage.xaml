@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             x:Class="MedicalShredApp.Views.TimeLine.TimePointDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <converter:FrequencyConverter x:Key="FrequencyConverter" />
+            <converter:RecipeTypeConverter x:Key="RecipeTypeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="{StaticResource TopColor}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout HorizontalOptions="FillAndExpand" Grid.Row="0">
+                <Label Text="{Binding RecipeRecord.Diagnosis}" HorizontalTextAlignment="Center"  FontSize="24" FontAttributes="Bold" TextColor="Black"></Label>
+                <Label  FontSize="17" HorizontalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding RecipeRecord.HosName}"  />
+                            <Span Text=" — "/>
+                            <Span Text="{Binding RecipeRecord.DepartName}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <StackLayout Orientation="Horizontal">
+                    <Label  Padding="30,0,0,0" HorizontalOptions="StartAndExpand"  FontSize="17" FontAttributes="Bold" TextColor="Black">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="复诊：" ForegroundColor="{StaticResource PrimaryDark}" />
+                                <Span Text="{Binding RecipeRecord.IsRepeat , Converter={StaticResource BoolToStringConverter}}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label  Padding="0,0,30,0" HorizontalOptions="EndAndExpand" FontSize="17" FontAttributes="Bold" TextColor="Black">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="主治医生：" ForegroundColor="{StaticResource PrimaryDark}"/>
+                                <Span Text="{Binding RecipeRecord.DoctorName}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </StackLayout>
+                <yummy:PancakeView BackgroundColor="White" Padding="10"
+                                   CornerRadius="30" VerticalOptions="FillAndExpand">
+                    <ScrollView>
+                        <StackLayout Orientation="Vertical" Spacing="8">
+                            <Label   FontSize="15" FontAttributes="Bold" TextColor="Black">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="主要症状：" ForegroundColor="{StaticResource PrimaryDark}"  FontAttributes="Bold"  FontSize="17" />
+                                        <Span Text="{Binding RecipeRecord.ClinicalSymptoms}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <StackLayout Orientation="Horizontal">
+                                <Label   FontSize="15" FontAttributes="Bold" TextColor="Black">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="血压：" ForegroundColor="{StaticResource PrimaryDark}"  FontAttributes="Bold"  FontSize="17" />
+                                            <Span Text="{Binding RecipeRecord.BloodPressure}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label   FontSize="15" FontAttributes="Bold" TextColor="Black" HorizontalOptions="CenterAndExpand">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="血糖：" ForegroundColor="{StaticResource PrimaryDark}"  FontAttributes="Bold"  FontSize="17" />
+                                            <Span Text="{Binding RecipeRecord.BloodSugar}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                            <Label   FontSize="15" FontAttributes="Bold" TextColor="Black">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="体温：" ForegroundColor="{StaticResource PrimaryDark}"  FontAttributes="Bold"  FontSize="17" />
+                                        <Span Text="{Binding RecipeRecord.Temperature}" />
+                                        <Span Text="℃" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </ScrollView>
+                </yummy:PancakeView>
+            </StackLayout>
+
+            <yummy:PancakeView BackgroundColor="White"  Grid.Row="1"
+                                   CornerRadius="40, 40, 0, 0">
+               
+                <Grid   Padding="20, 20" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Row="0" Orientation="Horizontal">
+                        <yummy:PancakeView HeightRequest="40"
+                                                   CornerRadius="20"
+                                                   Padding="20, 0"
+                                                   BackgroundColor="{StaticResource PrimaryDark}">
+                            <Label  FontSize="15" VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="总金额: " />
+                                        <Span Text="{Binding TotalAmount}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </yummy:PancakeView>
+                        <yummy:PancakeView HeightRequest="40"
+                                           CornerRadius="20"
+                                           Padding="20, 0"
+                                           BackgroundColor="{StaticResource PrimaryDark}">
+                            <Label  FontSize="15" VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="处方号: " />
+                                    <Span Text="{Binding RecipeNo}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </yummy:PancakeView>
+                </StackLayout>
+
+                    <StackLayout  Grid.Row="1">
+                        <CollectionView ItemsSource="{Binding RecipeDetails}">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate >
+                                    <StackLayout Orientation="Vertical" Margin="0,5">
+                                        <yummy:PancakeView HeightRequest="160"
+                                                           CornerRadius="20"
+                                                           BackgroundColor="{StaticResource Primary}">
+
+                                            <StackLayout Orientation="Vertical" Spacing="7">
+                                                <yummy:PancakeView HeightRequest="40"
+                                                                       CornerRadius="20"
+                                                                       Padding="10,0"
+                                                                       Margin="0, 10"
+                                                                       BackgroundColor="{StaticResource PrimaryDark}">
+                                                    <Label Text="{Binding ItemName}"
+                                                               VerticalTextAlignment="Center" FontSize="16" FontAttributes="Bold"
+                                                               TextColor="{StaticResource TopColor}"/>
+                                                </yummy:PancakeView>
+                                                <StackLayout Orientation="Vertical"  Padding="10,0" >
+                                                    <Label  FontSize="15"  FontAttributes="Bold" TextColor="Black">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="每天 " />
+                                                                <Span Text="{Binding Frequency , Converter={StaticResource FrequencyConverter}}" />
+                                                                <Span Text="     每次 " />
+                                                                <Span Text="{Binding OnceDosage }" />
+                                                                <Span Text="{Binding OnceDosageUnit }" />
+                                                                <Span Text="     用法: " />
+                                                                <Span Text="{Binding Usages }" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                    <Label  FontSize="15"  FontAttributes="Bold" TextColor="Black">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="分 " />
+                                                                <Span Text="{Binding ExeDays}" />
+                                                                <Span Text="天使用 " />
+                                                                <Span Text="    共 " />
+                                                                <Span Text="{Binding Count}" />
+                                                                <Span Text="{Binding Unit}" />
+                                                                <Span Text="       金额: " />
+                                                                <Span Text="{Binding Money }" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </StackLayout>
+                                                <yummy:PancakeView HeightRequest="30"
+                                                                   CornerRadius="20"
+                                                                   Padding="10, 0" HorizontalOptions="End" Margin="20 , 0"
+                                                                   BackgroundColor="{StaticResource TopColor}">
+                                                    <Label  FontSize="15" VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                                                        <Label.FormattedText>
+                                                            <FormattedString>
+                                                                <Span Text="{Binding BelongType , Converter={StaticResource RecipeTypeConverter}}" />
+                                                            </FormattedString>
+                                                        </Label.FormattedText>
+                                                    </Label>
+                                                </yummy:PancakeView>
+                                        </StackLayout>
+                                        </yummy:PancakeView>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Grid>
+            
+            </yummy:PancakeView>
+        </Grid>
+
+</ContentPage>

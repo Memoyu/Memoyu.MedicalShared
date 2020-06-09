@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 mc:Ignorable="d"
+                 x:Class="MedicalShredApp.Views.Profile.QrCodeShowPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <Grid VerticalOptions="Center" Margin="40,20" HeightRequest="450">
+        <Frame CornerRadius="20" BackgroundColor="White">
+            <StackLayout x:Name="Content" Spacing="20" Padding="15">
+                <!--<Image x:Name="QrCode" Source="UserLogin.png" HeightRequest="100" VerticalOptions="End"/>-->
+                <Label Text="{Binding ValidateMsg}" TextColor="Red" HorizontalOptions="Center"/>
+            </StackLayout>
+        </Frame>
+    </Grid>
+</pages:PopupPage>

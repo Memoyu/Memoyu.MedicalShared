@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:customForms="clr-namespace:MedicalShredApp.CustomForms;assembly=MedicalShredApp"
+                 mc:Ignorable="d"
+                 x:Class="MedicalShredApp.Views.TimeLine.TimePointDetailPopupPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Bottom"
+                                   PositionOut="Bottom"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8"/>
+    </pages:PopupPage.Animation>
+    <Grid VerticalOptions="EndAndExpand" HorizontalOptions="Fill"  HeightRequest="500">
+        <!--<AbsoluteLayout   AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                          AbsoluteLayout.LayoutFlags="SizeProportional">-->
+        <customForms:ExtendedFrame  CornerRadius="20,20,0,0" BackgroundColor="White">
+            <ScrollView>
+                <StackLayout Spacing="20" Padding="15">
+                    <Image Source="UserLogin.png" HeightRequest="100" VerticalOptions="End"/>
+                    <Entry x:Name="EntryUserName" Text="{Binding UserName}" Placeholder="账号"
+                           PlaceholderColor="#bababa" FontSize="16"/>
+                    <Entry  x:Name="EntryPassword" IsPassword="True" Text="{Binding Password}" Placeholder="密码" 
+                            PlaceholderColor="#bababa" FontSize="16"/>
+                    <Button Margin="0,10,0,0" Text="登录" BackgroundColor="{StaticResource Primary}" 
+                            TextColor="White" HeightRequest="50" VerticalOptions="Start"
+                            Command="{Binding LoginCommand}"  FontSize="17"/>
+                    <Label Text="{Binding ValidateMsg}" TextColor="Red" HorizontalOptions="Center"/>
+                    <Image Source="UserLogin.png" HeightRequest="100" VerticalOptions="End"/>
+                    <Entry x:Name="EntryUserName1" Text="{Binding UserName}" Placeholder="账号"
+                           PlaceholderColor="#bababa" FontSize="16"/>
+                    <Entry  x:Name="EntryPassword1" IsPassword="True" Text="{Binding Password}" Placeholder="密码" 
+                            PlaceholderColor="#bababa" FontSize="16"/>
+                    <Button Margin="0,10,0,0" Text="登录" BackgroundColor="{StaticResource Primary}" 
+                            TextColor="White" HeightRequest="50" VerticalOptions="Start"
+                            Command="{Binding LoginCommand}"  FontSize="17"/>
+                    <Label Text="{Binding ValidateMsg}" TextColor="Red" HorizontalOptions="Center"/>
+                    <Image Source="UserLogin.png" HeightRequest="100" VerticalOptions="End"/>
+                    <Entry x:Name="EntryUserName2" Text="{Binding UserName}" Placeholder="账号"
+                           PlaceholderColor="#bababa" FontSize="16"/>
+                    <Entry  x:Name="EntryPassword3" IsPassword="True" Text="{Binding Password}" Placeholder="密码" 
+                            PlaceholderColor="#bababa" FontSize="16"/>
+                    <Button Margin="0,10,0,0" Text="登录" BackgroundColor="{StaticResource Primary}" 
+                            TextColor="White" HeightRequest="50" VerticalOptions="Start"
+                            Command="{Binding LoginCommand}"  FontSize="17"/>
+                    <Label Text="{Binding ValidateMsg}" TextColor="Red" HorizontalOptions="Center"/>
+                    <Image Source="UserLogin.png" HeightRequest="100" VerticalOptions="End"/>
+                    <Entry x:Name="EntryUserName3" Text="{Binding UserName}" Placeholder="账号"
+                           PlaceholderColor="#bababa" FontSize="16"/>
+                    <Entry  x:Name="EntryPassword4" IsPassword="True" Text="{Binding Password}" Placeholder="密码" 
+                            PlaceholderColor="#bababa" FontSize="16"/>
+                    <Button Margin="0,10,0,0" Text="登录" BackgroundColor="{StaticResource Primary}" 
+                            TextColor="White" HeightRequest="50" VerticalOptions="Start"
+                            Command="{Binding LoginCommand}"  FontSize="17"/>
+                    <Label Text="{Binding ValidateMsg}" TextColor="Red" HorizontalOptions="Center"/>
+                </StackLayout>
+            </ScrollView>
+        </customForms:ExtendedFrame>
+        <!--</AbsoluteLayout>-->
+    </Grid>
+</pages:PopupPage>

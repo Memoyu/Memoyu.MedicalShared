@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<unity:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:unity="http://prismlibrary.com"
+                        mc:Ignorable="d"
+                        x:Class="MedicalShredApp.App">
+    <unity:PrismApplication.Resources>
+
+        <ResourceDictionary>
+            <Color x:Key="TopColor">#F5F5F5</Color>
+            <Color x:Key="BotColor">#F5F5F5</Color>
+            <Color x:Key="Primary">#91D4C2</Color>
+            <Color x:Key="PrimaryDark">#45BB89</Color>
+            <Style TargetType ="NavigationPage">
+                <Setter Property="BarTextColor" Value="Black"></Setter>
+            </Style>
+        </ResourceDictionary>
+        <Style x:Key="MenuBlackLabel" TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+        <OnPlatform x:Key="IconFont" x:TypeArguments="x:String">
+            <On Platform="Android" Value="Fonts/MaterialIcons.ttf#" />
+        </OnPlatform>
+    </unity:PrismApplication.Resources>
+</unity:PrismApplication>

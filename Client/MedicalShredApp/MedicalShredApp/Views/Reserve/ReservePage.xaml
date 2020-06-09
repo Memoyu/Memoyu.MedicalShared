@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:custtom="clr-namespace:MedicalShredApp.CustomForms.Controls;assembly=MedicalShredApp"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.Reserve.ReservePage">
+    <ContentPage.Content>
+        <AbsoluteLayout >
+            <Grid RowSpacing="0" x:Name="Grid" 
+                  AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                  AbsoluteLayout.LayoutFlags="SizeProportional"
+                  Padding="80, 10, 0 ,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="1"
+                             Margin="0, 20, 0 ,0">
+                    <custtom:DoctorListControl x:Name="DoctorScroll"  
+                                               Doctors="{Binding Doctors, Mode=TwoWay}"
+                                               IsBusy="{Binding IsLoadBusy }"
+                                               IsUpLoadMore="{Binding IsUpLoadMore }"
+                                               LoadMoreCommand="{Binding  LoadMoreCommand  }"
+                                               CurrentHospital="{Binding CurrentHospital}"
+                                               GoToDetailCommand="{Binding GoToDetailCommand}"
+                                               SearchDoctorCommand="{Binding SearchDocCommand}"
+                                               ReserveRecordClickCommand="{Binding ReserveRecordCommand}"
+                                               SmartDiagnosisClickCommand="{Binding SmartDiagnosisCommand}"
+                                               Padding="10, 0, 0, 0"/>
+                </StackLayout>
+            </Grid>
+            <custtom:SidebarControl AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+                                     x:Name="sideBar"
+                                     Hospitals="{Binding Hospitals}"
+                                     HospitalSelected="{Binding CurrentHospital}"
+                                     SearchTextChangedCommand="{Binding SearchHosTextChangedCommand}"
+                                     CurrentHospitalChangedCommand="{Binding CurrentHospitalChangedCommand}"
+                                     HorizontalOptions="StartAndExpand"
+                                     AbsoluteLayout.LayoutFlags="SizeProportional"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

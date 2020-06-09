@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:customForms="clr-namespace:MedicalShredApp.CustomForms;assembly=MedicalShredApp"
+                 xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+                 xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+                 xmlns:utils="clr-namespace:MedicalShredApp.Utils;assembly=MedicalShredApp"
+                 mc:Ignorable="d"
+                 x:Class="MedicalShredApp.Views.Reserve.DoctorDetailPopupPage">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceConverter x:Key="ImageSourceConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Bottom"
+                                   PositionOut="Bottom"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8"/>
+
+    </pages:PopupPage.Animation>
+    <Grid VerticalOptions="EndAndExpand" HorizontalOptions="Fill"  HeightRequest="500">
+        <customForms:ExtendedFrame  CornerRadius="20,20,0,0" BackgroundColor="White">
+            <ScrollView>
+                <StackLayout Spacing="20" Padding="15">
+                    <pancakeView:PancakeView BackgroundColor="White" 
+                                             CornerRadius="10">
+                        <AbsoluteLayout >
+                            <Image Source="{Binding Doctor.Photo , Converter={StaticResource ImageSourceConverter}}"   
+                                   AbsoluteLayout.LayoutBounds="0.5,0,90,90" 
+                                   AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   HeightRequest="90" WidthRequest="90" MinimumWidthRequest="90" HorizontalOptions="Center" Aspect="AspectFill"/>
+                            <pancakeView:PancakeView BackgroundColor="White" BorderThickness="4" BorderColor="{StaticResource PrimaryDark}"
+                                                     AbsoluteLayout.LayoutBounds="1,0,40,40" 
+                                                     AbsoluteLayout.LayoutFlags="PositionProportional"
+                                                     CornerRadius="20">
+                                <Label Text="{x:Static utils:MaterialDesignIcons.Star}"
+                                       TextColor="{Binding StartColor}"
+                                       FontSize="30" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                                       FontFamily="{StaticResource IconFont}"  />
+                                <pancakeView:PancakeView.GestureRecognizers>
+                                    <TapGestureRecognizer  Command="{Binding StartDoctorCommand}"/>
+                                </pancakeView:PancakeView.GestureRecognizers>
+                            </pancakeView:PancakeView>
+                            
+                        </AbsoluteLayout>
+                    </pancakeView:PancakeView>
+                    <StackLayout>
+                        <Label  FontSize="15" HorizontalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Doctor.DoctorName}" FontSize="24" FontAttributes="Bold" TextColor="Black"/>
+                                    <Span Text=" — "/>
+                                    <Span Text="{Binding  Doctor.Position}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label  FontSize="17" HorizontalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="科室：" FontSize="20" ForegroundColor="{StaticResource PrimaryDark}" FontAttributes="Bold"/>
+                                    <Span Text="{Binding  Doctor.Department}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label  Text="{Binding  Doctor.Description}" FontSize="17" HorizontalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+                    </StackLayout>
+                   
+                    <StackLayout Orientation="Horizontal" HeightRequest="40" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand"  >
+                        <StackLayout Spacing="8" Padding="0,-25,80,0" HorizontalOptions="Start" >
+                            <Label Text="预约日期"  FontSize="12" />
+                            <DatePicker Format="yyyy年MM月dd" Date="{Binding ReserveDate ,Mode=OneWayToSource}"></DatePicker>
+                        </StackLayout>
+                        <Button Text="预   约" 
+                                WidthRequest="80" 
+                                BackgroundColor="{StaticResource TopColor}" 
+                                BorderColor="{StaticResource Primary}"
+                                BorderWidth="1" 
+                                HorizontalOptions="EndAndExpand" 
+                                CornerRadius="20" 
+                                Command="{Binding ReserveClickCommand}"
+                                TextColor="{StaticResource PrimaryDark}"/>
+                        <Button Text="联系医生" 
+                                WidthRequest="80" 
+                                BackgroundColor="{StaticResource TopColor}" 
+                                BorderColor="{StaticResource Primary}"
+                                BorderWidth="1" 
+                                HorizontalOptions="EndAndExpand" 
+                                CornerRadius="20" 
+                                Command="{Binding DoctorChatClickCommand}"
+                                TextColor="{StaticResource PrimaryDark}"/>
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+        </customForms:ExtendedFrame>
+    </Grid>
+</pages:PopupPage>

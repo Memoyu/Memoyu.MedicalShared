@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             xmlns:local="clr-namespace:MedicalShredApp.Common.Converter"
+             xmlns:prismNavigation="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Name="mainContainer"
+             x:Class="MedicalShredApp.Views.News.NewsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DateTimeConverter x:Key="DateTimeConverter" />
+            <local:ImageSourceConverter x:Key="ImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BackgroundColor="{StaticResource TopColor}" HeightRequest="100">
+                <Label Margin="30,0,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="新闻 &#10;" FontSize="28" FontAttributes="Bold" ForegroundColor="{StaticResource Primary}" />
+                            <Span Text="新的开始！" FontSize="17" ForegroundColor="{StaticResource Primary}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <pancakeView:PancakeView HeightRequest="80"
+                                         CornerRadius="35"
+                                         Margin="0,0,0,-30"
+                                         BackgroundColor="{StaticResource TopColor}">
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="最  新" 
+                            WidthRequest="80" HeightRequest="40"
+                            BackgroundColor="{StaticResource TopColor}" 
+                            BorderColor="{StaticResource Primary}"
+                            BorderWidth="1" 
+                            VerticalOptions="Start"
+                            HorizontalOptions="EndAndExpand" 
+                            CornerRadius="20" 
+                            Command="{Binding HealthReportClickCommand}"
+                            TextColor="{StaticResource PrimaryDark}"/>
+                        <Button Text="关  注" 
+                            WidthRequest="80" HeightRequest="40"
+                            Margin="0,0,20,0"
+                            BackgroundColor="{StaticResource TopColor}" 
+                            BorderColor="{StaticResource Primary}"
+                            BorderWidth="1" 
+                            VerticalOptions="Start"
+                            HorizontalOptions="End" 
+                            CornerRadius="20" 
+                            Command="{Binding HealthReportClickCommand}"
+                            TextColor="{StaticResource PrimaryDark}"/>
+                    </StackLayout>
+                </pancakeView:PancakeView>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" HeightRequest="20"/>
+            <!-- Schedule-->
+            <StackLayout  VerticalOptions="FillAndExpand" >
+                <controls:PullToRefreshLayout x:Name="RefreshLayout"
+                    IsPullToRefreshEnabled="{Binding CanRefresh}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsBusy , Mode=OneWay}"
+                    RefreshColor="Blue">
+                    <ListView ItemsSource="{Binding NewsData}" ItemTapped="ListView_ItemTapped"
+                              CachingStrategy="RetainElement">
+                        <ListView.RowHeight>
+                            <OnPlatform x:TypeArguments="x:Int32" Android="110"/>
+                        </ListView.RowHeight>
+                        <ListView.Footer>
+                            <Button Text="LoadMore" BackgroundColor="White" Command="{Binding LoadMoreNews}"></Button>
+                        </ListView.Footer>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal" Padding="5,5" >
+                                        <Image   Source="{Binding Url , Converter={StaticResource ImageSourceConverter}}"  WidthRequest="150" MinimumWidthRequest="150" HorizontalOptions="Start"/>
+                                        <StackLayout Orientation="Vertical"  HorizontalOptions="FillAndExpand" >
+                                            <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" MaxLines="3"  LineBreakMode="TailTruncation"  VerticalOptions="Start"/>
+                                            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" >
+                                                <Label Text="{Binding DateTime, Converter={StaticResource DateTimeConverter},ConverterParameter=yyyy-MM-dd HH:mm}" FontSize="13" TextColor="Silver" />
+                                                <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" >
+                                                    <Label Text="{Binding Hits , StringFormat='{0} 评' }" FontSize="13" TextColor="Silver" />
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </StackLayout>
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.NewsDetailCommand , Source={x:Reference mainContainer}}" 
+                                                                  CommandParameter="{Binding}"/>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </controls:PullToRefreshLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

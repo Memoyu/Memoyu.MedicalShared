@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pullToRefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.Profile.MyStartDoctorPage"
+             x:Name="mainContainer"
+             Title="医生">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceConverter x:Key="ImageSourceConverter" />
+            <converter:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="FillAndExpand" >
+            <pullToRefresh:PullToRefreshLayout x:Name="RefreshLayout"
+                    IsPullToRefreshEnabled="{Binding CanRefresh}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsBusy , Mode=OneWay}"
+                    RefreshColor="Blue">
+                <ListView ItemsSource="{Binding FollowDoctors}" 
+                          ItemTapped="ListView_OnItemTapped"
+                              CachingStrategy="RetainElement"
+                              SeparatorVisibility="None">
+                    <ListView.RowHeight>
+                        <OnPlatform x:TypeArguments="x:Int32" Android="110"/>
+                    </ListView.RowHeight>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <pancakeView:PancakeView HeightRequest="90"
+                                                         CornerRadius="20"
+                                                         Padding="10,10" Margin="5" 
+                                                         BackgroundColor="{StaticResource Primary}">
+                                    <StackLayout Orientation="Horizontal" Spacing="5">
+                                        <pancakeView:PancakeView BackgroundColor="White" 
+                                                   HeightRequest="90" WidthRequest="90" MinimumWidthRequest="90"
+                                                    CornerRadius="10">
+                                            <Image Source="{Binding Photo , Converter={StaticResource ImageSourceConverter}}" Aspect="AspectFill"/>
+                                        </pancakeView:PancakeView>
+                                        <StackLayout Orientation="Vertical" >
+                                            <StackLayout Orientation="Horizontal" Spacing="20">
+                                                <Label Text="{Binding DoctorName}"
+                                           VerticalOptions="Start" FontSize="17"
+                                           FontAttributes="Bold"/>
+                                                <Label Text="{Binding Department}"
+                                           VerticalOptions="Start" FontSize="17"
+                                           FontAttributes="Bold"/>
+                                            </StackLayout>
+                                            <Label Text="{Binding HosName}"
+                                           VerticalOptions="StartAndExpand"  LineBreakMode="TailTruncation"
+                                           FontAttributes="Bold"/>
+                                            <Label Text="{Binding FollowDate, Converter={StaticResource DateTimeConverter},ConverterParameter=yyyy-MM-dd HH:mm}" FontSize="13" TextColor="Black" />
+                                        </StackLayout>
+                                        <StackLayout HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand">
+                                            <Button Text="问诊" 
+                                                    WidthRequest="80" HeightRequest="40"
+                                                    BackgroundColor="{StaticResource TopColor}" 
+                                                    BorderColor="{StaticResource Primary}"
+                                                    BorderWidth="1" 
+                                                    VerticalOptions="Start"
+                                                    HorizontalOptions="EndAndExpand" 
+                                                    CornerRadius="20"
+                                                    Command="{Binding BindingContext.ChatDoctorCommand , Source={x:Reference mainContainer}}" 
+                                                    CommandParameter="{Binding}"
+                                                    TextColor="{StaticResource PrimaryDark}"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                    <!--<pancakeView:PancakeView.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding DoctorDetailCommand , Source={x:Reference mainContainer}} " 
+                                                              CommandParameter="{Binding}"/>
+                                    </pancakeView:PancakeView.GestureRecognizers>-->
+                                </pancakeView:PancakeView>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </pullToRefresh:PullToRefreshLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

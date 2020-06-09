@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:input="clr-namespace:Plugin.InputKit.Shared.Controls;assembly=Plugin.InputKit"
+             xmlns:profile="clr-namespace:MedicalShredApp.ViewModels.Profile;assembly=MedicalShredApp"
+             mc:Ignorable="d"
+             Title="注册"
+             x:Class="MedicalShredApp.Views.Profile.RegisteredPage" >
+
+    <ContentPage.Resources>
+        <OnPlatform x:Key="font_medium" x:TypeArguments="x:String">
+            <On Platform="Android" Value="Fonts/futura_medium.ttf#FuturaBT-Medium" />
+            <On Platform="iOS" Value="FuturaBT-Medium" />
+        </OnPlatform>
+        <Style TargetType="{x:Type Entry}">
+            <Setter Property="FontFamily" Value="{StaticResource font_medium}" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+
+        <Grid BackgroundColor="#F5F5F5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="130"/>
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0" >
+                <StackLayout x:Name="FormLayout" Spacing="16" Margin="20,50,20,0">
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Spacing="8" Grid.Column="0">
+                            <Label Text="用户名" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <Entry Text="{Binding UserName , Mode=TwoWay}" />
+                        </StackLayout>
+                        <StackLayout Spacing="8"  Grid.Column="1">
+                            <Label Text="电话号码" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <Entry Text="{Binding TelNo}" Keyboard="Numeric" />
+                        </StackLayout>
+                    </Grid>
+                    <Grid ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Spacing="8" Grid.Column="0">
+                            <Label Text="真实姓名" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <Entry Text="{Binding RealName , Mode=TwoWay}" />
+                        </StackLayout>
+                        <StackLayout Spacing="8"  Grid.Column="1">
+                            <Label Text="身份证号" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <Entry Text="{Binding IdNo}" Keyboard="Numeric" />
+                        </StackLayout>
+                    </Grid>
+
+                    <StackLayout Spacing="8">
+                        <Label Text="密码" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                        <Entry Text="{Binding Password}"  Keyboard="Chat" IsPassword="True" />
+                    </StackLayout>
+                    <StackLayout Spacing="8">
+                        <Label Text="确认密码" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                        <Entry Text="{Binding PasswordAgain}"  Keyboard="Chat" IsPassword="True" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Spacing="80">
+                        <StackLayout Spacing="8">
+                            <Label Text="性别" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <input:RadioButtonGroupView Spacing="60"  Orientation="Horizontal">
+                                <input:RadioButton Text="男" TextFontSize="16" IsChecked="{Binding Sex , Mode=TwoWay}"/>
+                                <input:RadioButton Text="女" TextFontSize="16" />
+                            </input:RadioButtonGroupView>
+                        </StackLayout>
+                        <StackLayout Spacing="8" HorizontalOptions="FillAndExpand">
+                            <Label Text="出生日期"  FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <DatePicker Format="yyyy年MM月dd" Date="{Binding Birthday ,Mode=OneWayToSource}"></DatePicker>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Spacing="8">
+                        <Label Text="邮箱" FontFamily="{StaticResource font_medium}" FontSize="12" />
+                        <Entry Text="{Binding Email}" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" >
+                        <StackLayout Spacing="8" HorizontalOptions="Start">
+                            <Label Text="血型"  FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <input:Dropdown x:Name="Blood"                           
+                                        TitleColor="Black"
+                                        Color="Green"
+                                        AnnotationColor="Accent" 
+                                        CornerRadius="10"
+                                        BorderColor="Black" 
+                                        Placeholder="血型" 
+                                        SelectedItem="{Binding BloodSelectedItem , Mode=OneWayToSource}"
+                                        FontSize="15"/>
+                        </StackLayout>
+                        <StackLayout Spacing="8" HorizontalOptions="FillAndExpand">
+                            <Label Text="职业"  FontFamily="{StaticResource font_medium}" FontSize="12" />
+                            <input:Dropdown x:Name="Job"                           
+                                        TitleColor="Black"
+                                        Color="Green"
+                                        AnnotationColor="Accent" 
+                                        CornerRadius="10"
+                                        BorderColor="Black" 
+                                        Placeholder="职业" 
+                                        SelectedItem="{Binding JobSelectedItem}"
+                                        FontSize="15"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <StackLayout Spacing="8">
+                        <Label Text="地址"  FontFamily="{StaticResource font_medium}" FontSize="12" />
+                        <StackLayout Orientation="Horizontal" Spacing="5">
+                            <input:Dropdown x:Name="Province" WidthRequest="135"                             
+                                            TitleColor="Black"
+                                            Color="Green"
+                                            AnnotationColor="Accent" 
+                                            CornerRadius="10"
+                                            BorderColor="Black" 
+                                            Placeholder="省" 
+                                            SelectedItem="{Binding ProvinceSelectedItem , Mode=TwoWay}"
+                                            FontSize="15"/>
+                            <input:Dropdown x:Name="City"  WidthRequest="135"                            
+                                            TitleColor="Black"
+                                            Color="Green"
+                                            AnnotationColor="Accent" 
+                                            CornerRadius="10"
+                                            BorderColor="Black" 
+                                            Placeholder="市" 
+                                            ItemsSource="{Binding Cites}"
+                                            SelectedItem="{Binding CitySelectedItem}"
+                                            FontSize="15"/>
+                            <input:Dropdown x:Name="Area"  WidthRequest="135"                         
+                                            TitleColor="Black"
+                                            Color="Green"
+                                            AnnotationColor="Accent" 
+                                            CornerRadius="10"
+                                            BorderColor="Black" 
+                                            Placeholder="区/街道" 
+                                            ItemsSource="{Binding Areas}"
+                                            SelectedItem="{Binding AreaSelectedItem}"
+                                            FontSize="15"/>
+                        </StackLayout>
+                    </StackLayout>
+
+                </StackLayout>
+            </ScrollView>
+            <StackLayout Grid.Row="1" BackgroundColor="White" HeightRequest="130" VerticalOptions="End" Spacing="15">
+
+                <Button Text="注    册" 
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="{OnPlatform 250,iOS=300}" 
+                        HeightRequest="50" 
+                        BackgroundColor="#F5F5F5" 
+                        BorderColor="#FE3A3B"
+                        BorderWidth="1" 
+                        HorizontalOptions="Center" 
+                        CornerRadius="25" 
+                        TextColor="#FE3A3B"
+                        Command="{Binding RegisteredClickCommand}"/>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

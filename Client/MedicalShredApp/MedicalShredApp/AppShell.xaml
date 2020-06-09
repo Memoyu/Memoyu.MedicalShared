@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       mc:Ignorable="d"
+       xmlns:news="clr-namespace:MedicalShredApp.Views.News;assembly=MedicalShredApp"
+       xmlns:timeLine="clr-namespace:MedicalShredApp.Views.TimeLine;assembly=MedicalShredApp"
+       xmlns:reserve="clr-namespace:MedicalShredApp.Views.Reserve;assembly=MedicalShredApp"
+       xmlns:profile="clr-namespace:MedicalShredApp.Views.Profile;assembly=MedicalShredApp"
+       Title="MedicalShredApp"
+       x:Class="MedicalShredApp.AppShell" 
+       Shell.NavBarHasShadow="False">
+
+    <!--<Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="NavigationPrimary">WhiteSmoke</Color>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.ForegroundColor" Value="#B0E0E6" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
+                <Setter Property="Shell.UnselectedColor" Value="#757575" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="#B0E0E6" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#757575" />
+                <Setter Property="Shell.TabBarTitleColor" Value="#B0E0E6" />
+            </Style>
+            <Style TargetType="ShellItem" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <TabBar Style="{StaticResource BaseStyle}">
+        <Tab Icon="tabBar_news_selected.png" Title="新闻">
+            <ShellContent>
+                <news:NewsPage/>
+            </ShellContent>
+        </Tab>
+        <Tab Icon="tabBar_timeline_selected.png" Title="时间轴">
+            <ShellContent>
+                <timeLine:TimeLinePage/>
+            </ShellContent>
+        </Tab>
+        <Tab Icon="tabBar_reserve_selected.png" Title="预约">
+            <ShellContent>
+                <reserve:ReservePage/>
+            </ShellContent>
+        </Tab>
+        <Tab Icon="tabBar_profile_selected.png" Title="我">
+            <ShellContent>
+                <profile:ProfilePage/>
+            </ShellContent>
+        </Tab>
+    </TabBar>-->
+</Shell>

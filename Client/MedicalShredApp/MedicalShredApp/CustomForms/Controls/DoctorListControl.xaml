@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:utils="clr-namespace:MedicalShredApp.Utils;assembly=MedicalShredApp"
+             xmlns:converters="clr-namespace:FreshApp.Converters;assembly=MedicalShredApp"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             xmlns:controls="clr-namespace:MedicalShredApp.Controls;assembly=MedicalShredApp"
+             x:Name="mainContainer"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.CustomForms.Controls.DoctorListControl">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:PriceToStringConverter x:Key="decConverter" IsDec="True" />
+            <converters:PriceToStringConverter x:Key="yuanConverter" IsDec="False" />
+            <converter:ImageSourceConverter x:Key="ImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <pancakeView:PancakeView  Grid.Row="0"
+                                  CornerRadius="20"
+                                  BackgroundColor="{StaticResource Primary}"
+                                  VerticalOptions="EndAndExpand"
+                                  Padding="10, 0">
+            <StackLayout Orientation="Horizontal" >
+                <Label Text="{x:Static utils:MaterialDesignIcons.Magnify}"
+                       VerticalOptions="CenterAndExpand"
+                       TextColor="White"
+                       FontSize="Title"
+                       FontFamily="{StaticResource IconFont}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <controls:ExtendedEntry HasBorder="False" x:Name="Search"
+                                        Placeholder="Search"
+                                        TextColor="Black"
+                                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+        </pancakeView:PancakeView>
+        <StackLayout Orientation="Horizontal" Grid.Row="1" x:Name="StackLayout" >
+            <Label Text="医生"
+                   FontSize="Large"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Start"
+                   VerticalOptions="CenterAndExpand"/>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                <Button Text="智能诊断" x:Name="SmartDiagnosis"
+                        WidthRequest="80"
+                        BackgroundColor="{StaticResource TopColor}" 
+                        BorderColor="{StaticResource Primary}"
+                        BorderWidth="1" 
+                        HorizontalOptions="End" 
+                        CornerRadius="20" 
+                        TextColor="{StaticResource PrimaryDark}" 
+                        Command="{Binding SmartDiagnosisClickCommand ,Source={x:Reference mainContainer}}"/>
+                <Button Text="预约记录" x:Name="ReserveBtn"
+                        WidthRequest="80" Margin="0,0,20,0"
+                        BackgroundColor="{StaticResource TopColor}" 
+                        BorderColor="{StaticResource Primary}"
+                        BorderWidth="1" 
+                        HorizontalOptions="End" 
+                        CornerRadius="20" 
+                        TextColor="{StaticResource PrimaryDark}"
+                        Command="{Binding ReserveRecordClickCommand ,Source={x:Reference mainContainer}}"/>
+            </StackLayout>
+        </StackLayout>
+        <ScrollView Grid.Row="2" Scrolled="ScrollView_OnScrolled">
+            <StackLayout Spacing="10" 
+                     BindableLayout.ItemsSource="{Binding Doctors}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <pancakeView:PancakeView HeightRequest="90"
+                                        CornerRadius="20, 0, 20, 0"
+                                        Padding="10"
+                                        BackgroundColor="{StaticResource Primary}">
+                            <StackLayout Orientation="Horizontal" Spacing="5">
+                                <pancakeView:PancakeView BackgroundColor="White" 
+                                                   HeightRequest="90" WidthRequest="90" MinimumWidthRequest="90"
+                                                    CornerRadius="10">
+                                    <Image Source="{Binding Photo , Converter={StaticResource ImageSourceConverter}}" Aspect="AspectFill"/>
+                                </pancakeView:PancakeView>
+                                <StackLayout Orientation="Vertical" >
+                                    <StackLayout Orientation="Horizontal" Spacing="20">
+                                        <Label Text="{Binding DoctorName}"
+                                           VerticalOptions="Start" FontSize="17"
+                                           FontAttributes="Bold"/>
+                                        <Label Text="{Binding Department}"
+                                           VerticalOptions="Start" FontSize="17"
+                                           FontAttributes="Bold"/>
+                                    </StackLayout>
+                                    <Label Text="{Binding Description}"
+                                           VerticalOptions="StartAndExpand" MaxLines="3" LineBreakMode="TailTruncation"
+                                           FontAttributes="Bold"/>
+                                </StackLayout>
+                            </StackLayout>
+                            <pancakeView:PancakeView.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToDetailCommand , Source={x:Reference mainContainer}} " 
+                                                      CommandParameter="{Binding}"/>
+                            </pancakeView:PancakeView.GestureRecognizers>
+                        </pancakeView:PancakeView>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentView>

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://prismlibrary.com"
+             xmlns:news="clr-namespace:MedicalShredApp.Views.News;assembly=MedicalShredApp"
+             xmlns:timeLine="clr-namespace:MedicalShredApp.Views.TimeLine;assembly=MedicalShredApp"
+             xmlns:reserve="clr-namespace:MedicalShredApp.Views.Reserve;assembly=MedicalShredApp"
+             xmlns:profile="clr-namespace:MedicalShredApp.Views.Profile;assembly=MedicalShredApp"
+             mvvm:ViewModelLocator.AutowireViewModel="True"  
+             NavigationPage.HasNavigationBar="False"
+             BarBackgroundColor="{StaticResource BotColor}"
+             SelectedTabColor="{StaticResource PrimaryDark}"
+             BarTextColor="{StaticResource PrimaryDark}"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.MainPage">
+
+    <news:NewsPage Title="新闻" Icon="tabBar_news_selected.png"></news:NewsPage>
+    <timeLine:TimeLinePage Title="时间轴" Icon="tabBar_timeline_selected.png"></timeLine:TimeLinePage>
+    <reserve:ReservePage Title="预约" Icon="tabBar_reserve_selected.png"></reserve:ReservePage>
+    <profile:ProfilePage Title="个人" Icon="tabBar_profile_selected.png"></profile:ProfilePage>
+</TabbedPage>

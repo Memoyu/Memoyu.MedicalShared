@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="horzontalList"
+             x:Class="MedicalShredApp.CustomForms.Controls.HorzontalListView">
+    <ContentView.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup>
+                        <VisualState x:Name="YearSelected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#5654d6" />
+                                <Setter Property="TextColor" Value="White" />
+                                <Setter Property="Margin" Value="{OnPlatform Android='0', iOS='0,5'}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="YearUnSelected">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentView.Resources>
+    <ContentView.Content>
+      <ScrollView VerticalScrollBarVisibility="Never" 
+                        VerticalOptions="Start" Orientation="Horizontal"
+                        HeightRequest="85" >
+            <StackLayout  BindableLayout.ItemsSource="{Binding Years , Source={x:Reference horzontalList}}" x:Name="YearEl"
+                                 Orientation="Horizontal" 
+                                 HorizontalOptions="FillAndExpand"
+                                 Padding="20,15,20,5">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <Button Text="{Binding}" Padding="30,10" BackgroundColor="Transparent"
+                                    TextColor="Black" Clicked="Button_OnClicked"/>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </ScrollView>
+  </ContentView.Content>
+</ContentView>

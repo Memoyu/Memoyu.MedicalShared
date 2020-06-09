@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:customForms="clr-namespace:MedicalShredApp.CustomForms;assembly=MedicalShredApp"
+             xmlns:prismNavigation="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:utils="clr-namespace:MedicalShredApp.Utils;assembly=MedicalShredApp"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.Profile.ProfilePage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceConverter x:Key="ImageSourceConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BackgroundColor="{StaticResource TopColor}" HeightRequest="100">
+                <Label Margin="30,0,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="账号 &#10;" FontSize="28" FontAttributes="Bold" ForegroundColor="{StaticResource Primary}" />
+                            <Span Text="今天会更美好！" FontSize="17" ForegroundColor="{StaticResource Primary}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Frame CornerRadius="35" Margin="0,0,0,-25" BackgroundColor="{StaticResource TopColor}" HasShadow="False" HeightRequest="15" VerticalOptions="EndAndExpand"/>
+            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <AbsoluteLayout HeightRequest="80"  Padding="20,0">
+                        <AbsoluteLayout.GestureRecognizers>
+                            <TapGestureRecognizer  Command="{Binding LoginCommand}"></TapGestureRecognizer>
+                        </AbsoluteLayout.GestureRecognizers>
+                        <Frame BackgroundColor="#e5e5e5"
+                               HasShadow="false"
+                               CornerRadius="50"
+                               Padding="0"
+                               WidthRequest="90"
+                               HeightRequest="90" HorizontalOptions="Start">
+                            <customForms:CircleImage 
+                                Source="{Binding Avatar , Converter={StaticResource ImageSourceConverter}}" 
+                                AbsoluteLayout.LayoutFlags="PositionProportional"
+                                   AbsoluteLayout.LayoutBounds="0,.5,60,60"/>
+                        </Frame>
+                        <StackLayout 
+                       AbsoluteLayout.LayoutFlags="PositionProportional"
+                       AbsoluteLayout.LayoutBounds="{OnPlatform Android='.9,.5,300,45'}">
+                            <Label Text="{Binding UserName ,Mode=TwoWay}" FontSize="17" FontAttributes="Bold" TextColor="#333333"/>
+                            <StackLayout Orientation="Horizontal">
+                                <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Start"
+                                                         CornerRadius="20"
+                                                         Padding="10, 0"
+                                                         BackgroundColor="{StaticResource TopColor}">
+                                    <Label Text="{Binding Email, Mode=TwoWay}" FontSize="13" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </pancakeView:PancakeView>
+                                <pancakeView:PancakeView HeightRequest="40" HorizontalOptions="End"
+                                                         CornerRadius="20"
+                                                         Padding="10, 0"
+                                                         BackgroundColor="{StaticResource TopColor}">
+                                    <Label Text="{Binding TelNo, Mode=TwoWay}" FontSize="13" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                                </pancakeView:PancakeView>
+                            </StackLayout>
+                        </StackLayout>
+                    </AbsoluteLayout>
+                    <Frame BackgroundColor="#050505" 
+                           HasShadow="false" 
+                           HeightRequest="25" 
+                           CornerRadius="10" 
+                           Margin="20,10"/>
+                    <BoxView BackgroundColor="#f1f1f1" HeightRequest="10"/>
+                    <Grid RowSpacing="0" ColumnSpacing="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition Height="1"></RowDefinition>
+                            <RowDefinition Height="10"></RowDefinition>
+                            <RowDefinition Height="50"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <StackLayout Grid.Row="0"  HeightRequest="50"  Orientation="Horizontal" Spacing="20" >
+                            <Image Source="ic_setting_b.png"  WidthRequest="20" HeightRequest="20" HorizontalOptions="Start" Margin="20,0" />
+                            <Label Text="设置" VerticalOptions="Center" FontSize="15" FontAttributes="Bold" />
+                                <Image Source="Ic_more_l.png"   WidthRequest="15" HeightRequest="15" HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{prismNavigation:NavigateTo 'SettingPage' , SourcePage={x:Reference SettingPage},Animated=True}"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                       
+                        <BoxView Grid.Row="1" HeightRequest="1"   BackgroundColor="#efefef"/>
+                        <StackLayout Grid.Row="2" HeightRequest="50"  Orientation="Horizontal" Spacing="20">
+                            <Image Source="ic_scan_b.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="Start" Margin="20,0" />
+                            <Label Text="一码通"  VerticalOptions="Center"  FontSize="15" FontAttributes="Bold"/>
+                            <Image Source="Ic_more_l.png" WidthRequest="15" HeightRequest="15"  HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer  Command="{Binding QrCodeTappedCommand}"></TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <BoxView Grid.Row="3" HeightRequest="1"   BackgroundColor="#efefef"/>
+                        <StackLayout Grid.Row="4" HeightRequest="50"  Orientation="Horizontal" Spacing="20">
+                            <Image Source="ic_follow.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="Start" Margin="20,0" />
+                            <Label Text="我的关注"  VerticalOptions="Center"  FontSize="15" FontAttributes="Bold"/>
+                            <Image Source="Ic_more_l.png" WidthRequest="15" HeightRequest="15"  HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer  Command="{Binding MyFocusTappedCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <BoxView Grid.Row="5" HeightRequest="1"   BackgroundColor="#efefef"/>
+                        <StackLayout Grid.Row="6" HeightRequest="50"  Orientation="Horizontal" Spacing="20">
+                            <Image Source="ic_qrCode.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="Start" Margin="20,0" />
+                            <Label Text="我的消息"  VerticalOptions="Center"  FontSize="15" FontAttributes="Bold"/>
+                            <Image Source="Ic_more_l.png" WidthRequest="15" HeightRequest="15"  HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer  Command="{Binding MyMessageTappedCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <BoxView Grid.Row="7" HeightRequest="1"   BackgroundColor="#efefef"/>
+                        <StackLayout Grid.Row="8" HeightRequest="50"  Orientation="Horizontal" Spacing="20">
+                            <Image Source="ic_clock.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="Start" Margin="20,0" />
+                            <Label Text="我的预约"  VerticalOptions="Center"  FontSize="15" FontAttributes="Bold"/>
+                            <Image Source="Ic_more_l.png" WidthRequest="15" HeightRequest="15"  HorizontalOptions="EndAndExpand" Margin="0,0,10,0"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer  Command="{Binding MyReserveTappedCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                        <BoxView Grid.Row="10" HeightRequest="3" BackgroundColor="#efefef"/>
+                        <Button Text="退出登录" Grid.Row="11"  BackgroundColor="Transparent" 
+                                TextColor="#FE3A3B" CornerRadius="0" Command="{Binding SignOutCommand}" /> 
+                        
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

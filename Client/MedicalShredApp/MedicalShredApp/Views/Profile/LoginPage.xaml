@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lottie="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:prismNavigation="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+             mc:Ignorable="d"
+             Title="登录"
+             x:Class="MedicalShredApp.Views.Profile.LoginPage">
+    <ContentPage.Content>
+        <Grid BackgroundColor="#F5F5F5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="400"/>
+            </Grid.RowDefinitions>
+            <lottie:AnimationView x:Name="animationView" 
+                                  Animation="circlewave.json" 
+                                  Loop="true" 
+                                  AutoPlay="true" 
+                                  VerticalOptions="FillAndExpand" 
+                                  HorizontalOptions="FillAndExpand" 
+            />
+            <Frame BackgroundColor="#F5F5F5" 
+                   HasShadow="false" 
+                   WidthRequest="80" 
+                   HeightRequest="80"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center"
+                   CornerRadius="40"
+                   Padding="0">
+                <Label Text="MS" FontSize="24" TextColor="#FE3A3B" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Frame>
+            <StackLayout Grid.Row="1" BackgroundColor="White" HeightRequest="400" VerticalOptions="End" Spacing="15">
+                <StackLayout Spacing="20">
+                    <Entry Placeholder="用户名/身份证号" Text="{Binding UserName}" Margin="80,30,80,0" 
+                           BackgroundColor="Transparent" PlaceholderColor="#a1a1a1" 
+                           VerticalTextAlignment="Center"   ClearButtonVisibility="WhileEditing"  FontSize="16" ></Entry>
+                    <Entry Placeholder="密码" IsPassword="True" Text="{Binding Password}" Margin="80,0,80,0" 
+                           BackgroundColor="Transparent" PlaceholderColor="#a1a1a1"  
+                           ClearButtonVisibility="WhileEditing" Keyboard="Chat" FontSize="16"></Entry>
+                </StackLayout>
+                <Button Text="登    录" 
+                        WidthRequest="{OnPlatform 250,iOS=300}" 
+                        HeightRequest="50" 
+                        BackgroundColor="#F5F5F5" 
+                        BorderColor="#FE3A3B"
+                        BorderWidth="1" 
+                        HorizontalOptions="Center" 
+                        CornerRadius="25" 
+                        TextColor="#FE3A3B"
+                        Command="{Binding LoginClickCommand}"/>
+                <Button Text="注    册"
+                        WidthRequest="{OnPlatform 250,iOS=300}"
+                        HeightRequest="50" 
+                        BackgroundColor="#F5F5F5" 
+                        BorderColor="#FE3A3B"
+                        BorderWidth="1" 
+                        HorizontalOptions="Center" 
+                        CornerRadius="25" 
+                        TextColor="#FE3A3B"
+                        Command="{prismNavigation:NavigateTo 'RegisteredPage' , SourcePage={x:Reference RegisteredPage},Animated=True}"
+                        />
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

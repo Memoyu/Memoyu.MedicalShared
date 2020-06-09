@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:MedicalShredApp.Common.Converter"
+             xmlns:utils="clr-namespace:MedicalShredApp.Utils;assembly=MedicalShredApp"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.News.NewsDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0">
+                <StackLayout Orientation="Vertical" Spacing="10">
+                    <Label Text="{Binding NewsDetail.Title}"  FontAttributes="Bold" BackgroundColor="{StaticResource TopColor}" FontSize="20" Padding="20 , 0" VerticalOptions="Start"/>
+                    <StackLayout  Orientation="Horizontal" HeightRequest="30" Padding="20 , 0"
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    AbsoluteLayout.LayoutBounds="{OnPlatform Android='.4,.5,150,45'}">
+                        <Frame BackgroundColor="#e5e5e5"
+                           HasShadow="false"
+                           Padding="20,0"
+                           CornerRadius="11"
+                           HorizontalOptions="Start">
+                            <Label  FontSize="15" TextColor="{StaticResource TopColor}" VerticalOptions="Center" HorizontalOptions="Center" >
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding NewsDetail.DateTime , Converter={StaticResource DateTimeConverter}}"  />
+                                        <Span Text="&#9;&#9;&#9;&#9;&#9;&#9;"></Span>
+                                        <Span Text="{Binding NewsDetail.Sender }" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout  Orientation="Horizontal" Padding="20 , 0"
+                              AbsoluteLayout.LayoutFlags="PositionProportional"
+                              AbsoluteLayout.LayoutBounds="{OnPlatform Android='.4,.5,150,45'}">
+                        <Frame BackgroundColor="#e5e5e5"
+                           HasShadow="false"
+                           Padding="10,5"
+                           CornerRadius="15"
+                           HorizontalOptions="Start">
+                            <Label Text="{Binding NewsDetail.Subhead }" FontSize="15" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" >
+                            </Label>
+                        </Frame>
+                    </StackLayout>
+                    <Label Text="{Binding NewsDetail.Content}"  Padding="20 , 0" FontSize="18" VerticalOptions="Start" />
+                    <StackLayout Orientation="Vertical" Spacing="8">
+                        <Label Text="评论区：" FontSize="17" TextColor="{StaticResource Primary}"></Label>
+                        <FlexLayout BindableLayout.ItemsSource="{Binding Comments}"
+                                    Direction="Column"
+                                    JustifyContent="Start"
+                                    Padding="20, 10">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <pancakeView:PancakeView CornerRadius="20"
+                                                             Padding="10,10" Margin="5" 
+                                                             BackgroundColor="{StaticResource Primary}">
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Name}" FontAttributes="Bold" FontSize="15"></Span>
+                                                    <Span Text="："></Span>
+                                                    <Span Text="{Binding Content}"></Span>
+                                                    <Span Text="&#9;&#9;&#9;&#9; — " TextColor="White"></Span>
+                                                    <Span Text="{Binding DateTime , Converter={StaticResource DateTimeConverter}}" TextColor="White"></Span>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </pancakeView:PancakeView>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+            <Grid Grid.Row="1"
+                RowSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Entry
+                    BackgroundColor="{StaticResource TopColor}"
+                    Placeholder="来，说点啥！"
+                    PlaceholderColor="{StaticResource Primary}"
+                    Text="{Binding CommentInput}"
+                    TextColor="Black" />
+                <Button
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource PrimaryDark}"
+                    Command="{Binding CommentCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Font="30"
+                    Text="{x:Static utils:MaterialDesignIcons.Send}" 
+                    FontFamily="{StaticResource IconFont}"
+                    VerticalOptions="FillAndExpand" />
+                <Button
+                    Grid.Column="2"
+                    BackgroundColor="{StaticResource PrimaryDark}"
+                    Command="{Binding CollectCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Font="30"
+                    TextColor="{Binding StartColor}"
+                    Text="{x:Static utils:MaterialDesignIcons.Star}" 
+                    FontFamily="{StaticResource IconFont}"
+                    VerticalOptions="FillAndExpand" />
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

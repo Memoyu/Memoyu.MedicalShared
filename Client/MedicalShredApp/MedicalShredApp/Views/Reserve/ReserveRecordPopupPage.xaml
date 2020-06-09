@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:customForms="clr-namespace:MedicalShredApp.CustomForms;assembly=MedicalShredApp"
+                 mc:Ignorable="d"
+                 x:Class="MedicalShredApp.Views.Reserve.ReserveRecordPopupPage">
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Bottom"
+                                   PositionOut="Bottom"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8"/>
+
+    </pages:PopupPage.Animation>
+    <Grid VerticalOptions="EndAndExpand" HorizontalOptions="Fill"  HeightRequest="500">
+        <customForms:ExtendedFrame  CornerRadius="20,20,0,0" BackgroundColor="White">
+            <ScrollView>
+                <StackLayout Spacing="20" Padding="15">
+                </StackLayout>
+            </ScrollView>
+        </customForms:ExtendedFrame>
+    </Grid>
+</pages:PopupPage>

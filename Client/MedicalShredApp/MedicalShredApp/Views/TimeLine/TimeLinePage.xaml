@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
+             xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+             xmlns:custtom="clr-namespace:MedicalShredApp.CustomForms.Controls;assembly=MedicalShredApp"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Name="TimeLineShow"
+             x:Class="MedicalShredApp.Views.TimeLine.TimeLinePage">
+
+    <ContentPage.Resources>
+        <!--<Style TargetType="Button">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup>
+                        <VisualState x:Name="YearSelected">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#5654d6" />
+                                <Setter Property="TextColor" Value="White" />
+                                <Setter Property="Margin" Value="{OnPlatform Android='0', iOS='0,5'}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="YearUnSelected">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="Black" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>-->
+
+        <ResourceDictionary>
+            <converter:TimeLineIconConverter x:Key="TimeLineIconConverter" />
+            <converter:DateTimeConverter x:Key="DateTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BackgroundColor="{StaticResource TopColor}" HeightRequest="100">
+                <Label Margin="30,0,0,0">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="健康时间轴 &#10;" FontSize="28" FontAttributes="Bold" ForegroundColor="{StaticResource Primary}" />
+                            <Span Text="身体是革命的本钱！" FontSize="17" ForegroundColor="{StaticResource Primary}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <pancakeView:PancakeView HeightRequest="80"
+                                   CornerRadius="35"
+                                   Margin="0,0,0,-30"
+                                   BackgroundColor="{StaticResource TopColor}">
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="健康报告" 
+                            WidthRequest="80" HeightRequest="40"
+                            BackgroundColor="{StaticResource TopColor}" 
+                            BorderColor="{StaticResource Primary}"
+                            BorderWidth="1" 
+                            VerticalOptions="Start"
+                            HorizontalOptions="EndAndExpand" 
+                            CornerRadius="20" 
+                            Command="{Binding HealthReportClickCommand}"
+                            TextColor="{StaticResource PrimaryDark}"/>
+                        <Button Text="病   历"
+                                    WidthRequest="80" HeightRequest="40"
+                                    Margin="0,0,20,0"
+                                    BackgroundColor="{StaticResource TopColor}" 
+                                    BorderColor="{StaticResource Primary}"
+                                    BorderWidth="1" 
+                                    VerticalOptions="Start"
+                                    HorizontalOptions="End" 
+                                    CornerRadius="20" 
+                                    Command="{Binding MedicalRecordClickCommand}"
+                                    TextColor="{StaticResource PrimaryDark}"/>
+                    </StackLayout>
+                </pancakeView:PancakeView>
+            </StackLayout>
+            <!-- Years-->
+            <custtom:HorzontalListView Years="{Binding Years}" YearSelectedItem="{Binding YearSelected}" SelectedItemCommand="{Binding YearCommand}"/>
+
+            <!-- Schedule-->
+            <StackLayout BackgroundColor="White" VerticalOptions="FillAndExpand">
+                <controls:PullToRefreshLayout
+                    IsPullToRefreshEnabled="{Binding CanRefresh}"
+                    RefreshCommand="{Binding RefreshCommand}"
+                    IsRefreshing="{Binding IsBusy , Mode=OneWay}"
+                    RefreshColor="Blue">
+                    <ListView ItemsSource="{Binding RecipeRecords ,Mode=TwoWay}"
+                              SeparatorVisibility="None"
+                          ItemTapped="ListView_ItemTapped">
+                        <ListView.RowHeight>
+                            <OnPlatform x:TypeArguments="x:Int32" Android="150"/>
+                        </ListView.RowHeight>
+                        <!--<ListView.Footer>
+                            <Button Text="LoadMore" BackgroundColor="White"></Button>
+                        </ListView.Footer>-->
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ContentView Padding="2">
+                                        <StackLayout Orientation="Horizontal"   >
+                                            <!-- Time-->
+                                            <Label Text="{Binding DateTime , Converter={StaticResource DateTimeConverter},ConverterParameter=yyyy-MM-dd HH:mm}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" FontSize="14" WidthRequest="75" MinimumWidthRequest="75"/>
+                                            <!-- Travel indicator-->
+                                            <StackLayout Orientation="Vertical" WidthRequest="30">
+                                                <!--<Image   Source="{Binding IsRepeat , Converter={StaticResource TimeLineIconConverter},ConverterParameter=Icon}" HeightRequest="30"/>-->
+                                                <BoxView  CornerRadius="30" HeightRequest="30" WidthRequest="30"   Color="{Binding IsRepeat ,Converter={StaticResource TimeLineIconConverter},ConverterParameter=Color}"  />
+                                                <BoxView VerticalOptions="FillAndExpand"  Margin="14,0" WidthRequest="1" Color="{Binding IsRepeat ,Converter={StaticResource TimeLineIconConverter},ConverterParameter=Color}" HeightRequest="70"/>
+                                            </StackLayout>
+                                            <!-- Place description-->
+                                            <StackLayout>
+                                                <Label Text="{Binding Diagnosis}" FontAttributes="Bold" FontSize="17" />
+                                                <Label Text="{Binding Department}" FontAttributes="Bold" FontSize="16" Opacity="0.6" />
+                                                <Label Text="{Binding ClinicalSymptoms}" FontSize="15" TextColor="Silver" MaxLines="4" LineBreakMode="TailTruncation" />
+
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ContentView>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                </controls:PullToRefreshLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

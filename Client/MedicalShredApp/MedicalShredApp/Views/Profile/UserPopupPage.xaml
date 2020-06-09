@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage  xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                  xmlns:converter="clr-namespace:MedicalShredApp.Common.Converter;assembly=MedicalShredApp"
+                  xmlns:customForms="clr-namespace:MedicalShredApp.CustomForms;assembly=MedicalShredApp"
+                  xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+                  mc:Ignorable="d"
+                  x:Class="MedicalShredApp.Views.Profile.UserPopupPage">
+    <pages:PopupPage.Resources>
+        <ResourceDictionary>
+            <converter:ImageSourceConverter x:Key="ImageSourceConverter" />
+            <converter:SexToStringConverter x:Key="SexToStringConverter" />
+            <converter:BloodTypeConverter x:Key="BloodTypeConverter" />
+            <converter:AgeConverter x:Key="AgeConverter" />
+        </ResourceDictionary>
+    </pages:PopupPage.Resources>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation DurationIn="400"
+                                   DurationOut="300"
+                                   EasingIn="SinOut"
+                                   EasingOut="SinIn"
+                                   HasBackgroundAnimation="True"
+                                   PositionIn="Center"
+                                   PositionOut="Center"
+                                   ScaleIn="1.2"
+                                   ScaleOut="0.8" />
+    </pages:PopupPage.Animation>
+    <Grid VerticalOptions="Center" Margin="40,20" HeightRequest="500">
+        <AbsoluteLayout>
+            <pancakeView:PancakeView CornerRadius="20" 
+                                     BackgroundColor="White"
+                                     AbsoluteLayout.LayoutBounds="0,50,1,0.9" 
+                                     AbsoluteLayout.LayoutFlags="SizeProportional">
+                <StackLayout Orientation="Vertical" Spacing="8" Padding="0,80,0,0" >
+                    <Label Text="{Binding UserInfo.UserName }" FontSize="25" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="#333333"/>
+                    <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                        <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Start"
+                                                 CornerRadius="20"
+                                                 Padding="20, 0"
+                                                 BackgroundColor="{StaticResource TopColor}">
+                            <Label Text="{Binding UserInfo.SexCode , Converter={StaticResource SexToStringConverter}}" FontSize="18" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </pancakeView:PancakeView>
+                        <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Start"
+                                                 CornerRadius="20"
+                                                 Padding="20, 0"
+                                                 BackgroundColor="{StaticResource TopColor}">
+                            <Label Text="{Binding UserInfo.BloodCode , Converter={StaticResource BloodTypeConverter}}" FontSize="18" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </pancakeView:PancakeView>
+                        <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Start"
+                                                 CornerRadius="20"
+                                                 Padding="20, 0"
+                                                 BackgroundColor="{StaticResource TopColor}">
+                            <Label Text="{Binding UserInfo.Birthday , Converter={StaticResource AgeConverter}}" FontSize="18" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </pancakeView:PancakeView>
+                    </StackLayout>
+                    <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Center"
+                                             CornerRadius="20"
+                                             Padding="20, 0"
+                                             BackgroundColor="{StaticResource TopColor}">
+                        <Label  FontSize="18" VerticalOptions="Center" TextColor="#a1a1a1">
+                            <Label.FormattedText >
+                                <FormattedString>
+                                    <Span Text="{Binding UserInfo.LxProvince}" />
+                                    <Span Text="{Binding UserInfo.LxCity}" />
+                                    <Span Text="{Binding UserInfo.LxCounty}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </pancakeView:PancakeView>
+                    <StackLayout Orientation="Horizontal" Spacing="10" HorizontalOptions="Center">
+                        <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Start"
+                                                 CornerRadius="20"
+                                                 Padding="20, 0"
+                                                 BackgroundColor="{StaticResource TopColor}">
+                            <Label Text="{Binding UserInfo.Email}" FontSize="15" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </pancakeView:PancakeView>
+                        <pancakeView:PancakeView HeightRequest="40"  HorizontalOptions="Start"
+                                                 CornerRadius="20"
+                                                 Padding="20, 0"
+                                                 BackgroundColor="{StaticResource TopColor}">
+                            <Label Text="{Binding UserInfo.TelNo }" FontSize="15" TextColor="#a1a1a1" VerticalOptions="Center" HorizontalOptions="Center"/>
+                        </pancakeView:PancakeView>
+                    </StackLayout>
+                </StackLayout>
+            </pancakeView:PancakeView>
+            <Frame BackgroundColor="#e5e5e5"
+                   HasShadow="false"
+                   CornerRadius="60"
+                   Padding="0"
+                   AbsoluteLayout.LayoutBounds="0.5,0,120,120" 
+                   AbsoluteLayout.LayoutFlags="PositionProportional" >
+                <customForms:CircleImage 
+                    Source="{Binding UserInfo.HeadIcon , Converter={StaticResource ImageSourceConverter}}"/>
+            </Frame>
+        </AbsoluteLayout>
+    </Grid>
+</pages:PopupPage>

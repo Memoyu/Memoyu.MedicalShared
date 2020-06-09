@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:utils="clr-namespace:MedicalShredApp.Utils;assembly=MedicalShredApp"
+             xmlns:controls="clr-namespace:MedicalShredApp.Controls;assembly=MedicalShredApp"
+             xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="MedicalShredApp.Views.Reserve.SmartDiagnosisPage"
+             Title="智能诊断">
+    <ContentPage.Content>
+      <StackLayout>
+          <pancakeView:PancakeView CornerRadius="20"
+                                    BackgroundColor="{StaticResource Primary}"
+                                    Padding="10, 0">
+                <StackLayout Orientation="Horizontal" >
+              <Label Text="{x:Static utils:MaterialDesignIcons.Magnify}"
+                     VerticalOptions="CenterAndExpand"
+                     TextColor="White"
+                     FontSize="Title"
+                     FontFamily="{StaticResource IconFont}">
+                  <Label.GestureRecognizers>
+                      <TapGestureRecognizer Tapped="Seach_OnTapped"></TapGestureRecognizer>
+                  </Label.GestureRecognizers>
+              </Label>
+              <controls:ExtendedEntry HasBorder="False" x:Name="Search"
+                                      Placeholder="Search"
+                                      TextColor="Black"
+                                      HorizontalOptions="FillAndExpand"/>
+          </StackLayout>
+          </pancakeView:PancakeView>
+            <StackLayout Orientation="Horizontal" Spacing="8" Padding="10,15">
+              <pancakeView:PancakeView HeightRequest="40"
+                                 CornerRadius="20"
+                                 Padding="20, 0"
+                                 BackgroundColor="{StaticResource PrimaryDark}">
+                  <Label  Text="发热" FontSize="15"  VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+              </pancakeView:PancakeView>
+              <pancakeView:PancakeView HeightRequest="40"
+                                       CornerRadius="20"
+                                       Padding="20, 0"
+                                       BackgroundColor="{StaticResource PrimaryDark}">
+                  <Label  Text="恶心" FontSize="15"  VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+              </pancakeView:PancakeView>
+              <pancakeView:PancakeView HeightRequest="40"
+                                       CornerRadius="20"
+                                       Padding="20, 0"
+                                       BackgroundColor="{StaticResource PrimaryDark}">
+                  <Label  Text="胸闷" FontSize="15"  VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+              </pancakeView:PancakeView>
+              <pancakeView:PancakeView HeightRequest="40"
+                                       CornerRadius="20"
+                                       Padding="20, 0"
+                                       BackgroundColor="{StaticResource PrimaryDark}">
+                  <Label  Text="心悸" FontSize="15"  VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+              </pancakeView:PancakeView>
+              <pancakeView:PancakeView HeightRequest="40"
+                                       CornerRadius="20"
+                                       Padding="20, 0"
+                                       BackgroundColor="{StaticResource PrimaryDark}">
+                  <Label  Text="晕眩" FontSize="15"  VerticalTextAlignment="Center"  FontAttributes="Bold" TextColor="Black"/>
+              </pancakeView:PancakeView>
+
+            </StackLayout>
+        </StackLayout>
+  </ContentPage.Content>
+</ContentPage>
