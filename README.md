@@ -22,7 +22,7 @@
 
 #### 在线问诊：
 
-![image](https://github.com/Memoyu/MedicalShared/blob/master/Images/在线问诊.png)
+![image](https://github.com/Memoyu/MedicalShared/blob/master/Images/一码通与在线在问诊记录.png)
 
 ####  个人：
 
